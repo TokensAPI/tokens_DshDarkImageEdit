@@ -1,0 +1,5 @@
+# Register @tokensapi/dsh-dark-image-edit with schema defaults.
+# Override baseURL, poll settings, or upload credentials per machine when needed.
+- insert:
+    - id: dark-image-edit
+      name: '@tokensapi/dsh-dark-image-edit'
