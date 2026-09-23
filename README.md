@@ -1,6 +1,6 @@
 # @tokensapi/dsh-dark-image-edit
 
-私密版的无交互 Qwen 图像编辑插件，面向 DeepSeek Harness / TokensCowork（DSH）。基于 TokensAPI，参考 [`@tokensapi/dsh-media-gen`](https://github.com/TokensAPI/tokens_DshMediaGen_code) 的精简版。
+私密版的无交互图像编辑插件，面向 DeepSeek Harness / TokensCowork（DSH）。基于 TokensAPI，参考 [`@tokensapi/dsh-media-gen`](https://github.com/TokensAPI/tokens_DshMediaGen_code) 的精简版。
 
 只做一件事：用 `qwen_image` 编辑一张图片，返回编辑后的图片（保存为 DSH 会话附件 + 远程 URL）。**无向导、无问答、无确认卡片**，Agent 直接调用工具即可。
 
