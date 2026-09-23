@@ -1,6 +1,6 @@
 {
   "name": "@tokensapi/dsh-dark-image-edit",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "无交互的 Qwen 图像编辑工具，基于 TokensAPI，面向 DeepSeek Harness / TokensCowork",
   "license": "MIT",
   "repository": {

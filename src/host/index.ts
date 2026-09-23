@@ -280,7 +280,7 @@ function validateEditArguments(args: AnyRecord): { model: string; aspectRatio?: 
   if (aspectRatio !== undefined && !(ASPECT_RATIOS as readonly string[]).includes(aspectRatio)) {
     throw new Error(`Aspect ratio ${aspectRatio} is not supported. Choose one of: ${ASPECT_RATIOS.join(', ')}.`)
   }
-  const n = args.n ?? 1
+  const n = args.n ?? 4
   if (!Number.isInteger(n) || ![1, 2, 4].includes(n)) {
     throw new Error('Image count n must be 1, 2, or 4.')
   }
@@ -330,19 +330,19 @@ export function apply(ctx: AnyRecord, config: MediaConfig): void {
 Flow, exactly this order, with no confirmations and no wizard:
 1. Pick the target image(s) from the user's uploads (dsh-attachment:latest by default; use first / last / index:N / a 1-based number / an attachment id, or the given HTTPS URL / local path — never invent a local path or URL). For a multi-image edit, pass up to 3 sources comma-separated in image, e.g. "dsh-attachment:1,dsh-attachment:2"; the model receives them as reference_1..reference_3 in that order.
 2. Take the user's edit instruction verbatim as the prompt. Do not enrich it with anything inferred from the image (you cannot see it).
-3. Call image_edit once with the full parameters; it uploads, generates, and returns the edited image with a download button.
+3. Call image_edit once with the full parameters; it uploads, generates, and returns the edited images (4 by default, for comparison) with download buttons.
 
 The plugin measures each image's width/height from file headers (metadata only) and picks the closest aspect ratio automatically — you do not need to inspect or reason about any image. For a multi-image edit without an explicit aspect_ratio, the plugin asks the user which image's dimensions to reference for the output ratio. Only pass aspect_ratio when the user explicitly requests a specific one.`,
   })
 
   register({
     name: 'image_edit',
-    description: '用 qwen_image 编辑图片并返回编辑后的图片（DSH 附件 + 远程 URL），全程不读取图片内容。支持最多 3 张输入图。图片输入支持 dsh-attachment 选择器、HTTPS URL、本地路径与 data URL；默认使用当前对话最近一张用户上传图片。',
+    description: '用 qwen_image 编辑图片并返回编辑后的图片（DSH 附件 + 远程 URL），默认一次生成 4 张供对比。全程不读取图片内容。支持最多 3 张输入图。图片输入支持 dsh-attachment 选择器、HTTPS URL、本地路径与 data URL；默认使用当前对话最近一张用户上传图片。',
     parameters: {
       prompt: { type: 'string', required: true, description: '编辑指令（原样使用，不分析图片内容）。' },
       image: { type: 'string', description: `图片来源，可多个用逗号分隔（最多 ${MAX_INPUT_IMAGES} 个）：dsh-attachment:latest、first、last、1 基序号、index:N、当前会话附件 id、HTTPS URL、本地路径或 data URL。默认最近一张用户上传图片。` },
       aspect_ratio: { type: 'string', enum: [...ASPECT_RATIOS], description: '画面比例，可选。不传时插件自动测量第一张图片尺寸并选择最接近的比例。' },
-      n: { type: 'integer', enum: [1, 2, 4], description: '生成数量，默认 1。' },
+      n: { type: 'integer', enum: [1, 2, 4], description: '生成数量，默认 4（一次生成 4 张供对比）。' },
     },
     output: {
       schema: imageOutputSchema(),

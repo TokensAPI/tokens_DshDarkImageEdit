@@ -180,6 +180,23 @@ test('image_edit execute runs the full upload->submit->poll->save flow (mock)', 
     // 自动测量：PNG 400x300 → 最接近比例 4:3（未显式传 aspect_ratio）
     assert.equal(mock.submitBody.aspect_ratio, '4:3')
     assert.equal(mock.submitBody.prompt, 'make it sunset')
+    // 默认一次生成 4 张供对比
+    assert.equal(mock.submitBody.n, 4)
+  } finally {
+    mock.restore()
+  }
+})
+
+test('image_edit honors an explicitly requested image count', async () => {
+  const mock = installFetchMock()
+  try {
+    const mod = await import('../dist/index.js')
+    const state = buildCtx()
+    mod.apply(state.ctx, config)
+
+    const imageEdit = state.tools.find((tool) => tool.name === 'image_edit')
+    await imageEdit.execute({ prompt: 'make it sunset', image: 'dsh-attachment:latest', n: 1 }, state.exec)
+    assert.equal(mock.submitBody.n, 1)
   } finally {
     mock.restore()
   }
