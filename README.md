@@ -8,12 +8,13 @@
 
 ## 兼容性
 
-- DeepSeek Harness / DSH `0.1.0-rc.8`、`0.1.3-alpha.1` 和 `^0.1.5-rc.2`
+- DeepSeek Harness / DSH `>=0.1.0-rc.8 <0.2.0`(含当前产品运行时 `0.1.2-alpha.x` 线)
 - Cordis `>=4.0.1 <5`
 - Node.js `^22.19.0 || >=24.0.0`
 
 ## 功能
 
+- 发送前本地标注待发图片：画笔、颜色、线宽、方框、撤销；保存后替换草稿附件，由用户照常点击发送。此功能在 TokensCowork 桌面版中运行，不调用远端图片编辑接口，也不识别图片内容。
 - 图片编辑（仅 `qwen_image`），全程**不读取图片内容**（黑盒流程）；
 - 图片输入支持 `dsh-attachment:latest/first/last/index:N/附件id`、HTTPS URL、本地路径与 data URL；
 - **最多 3 张输入图**：`image` 用逗号分隔多个来源（如 `dsh-attachment:1,dsh-attachment:2`），按顺序映射为 `reference_1..reference_3`；
@@ -34,7 +35,7 @@
 
 ```bash
 cd ~/.dsh/profiles
-npm install <路径>/tokensapi-dsh-dark-image-edit-0.1.4.tgz
+npm install <路径>/tokensapi-dsh-dark-image-edit-0.1.8.tgz
 ```
 
 在 `cordis.patch.yml` 注册：

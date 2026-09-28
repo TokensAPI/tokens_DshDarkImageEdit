@@ -1,6 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
+import vm from 'node:vm'
 
 test('dist bundle loads and exports the plugin contract', async () => {
   const mod = await import('../dist/index.js')
@@ -21,9 +22,27 @@ test('client bundle registers the published package name and keeps result render
   assert.match(client, /'aria-label': '下载图片'/)
 })
 
-test('client bundle owns no interactive wizard or composer flow', async () => {
+test('client bundle registers its draft image editor before the stock attachment rail', async () => {
   const client = await readFile(new URL('../lib/client.js', import.meta.url), 'utf8')
-  assert.doesNotMatch(client, /conversation\.composer/)
+  let moduleDefinition
+  vm.runInNewContext(client, { window: { __ModuleLoader__: { load(value) { moduleDefinition = value } } } })
+  const plugin = moduleDefinition.factory((name) => {
+    if (name === 'react/jsx-runtime') return { jsx() {}, jsxs() {}, Fragment: Symbol('fragment') }
+    if (name === 'react' || name === 'react-dom') return {}
+    throw new Error(`Unexpected module: ${name}`)
+  })
+  const registrations = []
+  const ctx = {
+    get(name) { return name === 'sessions' ? {} : name === 'conversation' ? {} : undefined },
+    slots: {
+      inject(_name, register) { register() },
+      register(options) { registrations.push(options) },
+    },
+  }
+  plugin.apply(ctx)
+  const editor = registrations.find((item) => item.name === 'conversation.input.attachments')
+  assert.equal(editor.priority, -1)
+  assert.equal(editor.locale, 'conversation')
   assert.doesNotMatch(client, /pendingInteraction/)
   assert.doesNotMatch(client, /initialMediaQuestionDraft/)
   assert.doesNotMatch(client, /questions\.map\(initialMediaQuestionDraft\)/)
@@ -32,7 +51,7 @@ test('client bundle owns no interactive wizard or composer flow', async () => {
 
 test('package metadata covers supported TokensCowork runtimes without the obsolete client runtime peer', async () => {
   const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
-  const supportedRange = '0.1.0-rc.8 || 0.1.3-alpha.1 || ^0.1.5-rc.2'
+  const supportedRange = '>=0.1.0-rc.8 <0.2.0'
   const runtimePeers = [
     '@deepseek-ai/dsh-credentials',
     '@deepseek-ai/dsh-tools',
@@ -41,7 +60,7 @@ test('package metadata covers supported TokensCowork runtimes without the obsole
     '@deepseek-ai/dsh-client-ui-tool',
   ]
 
-  assert.equal(pkg.version, '0.1.7')
+  assert.equal(pkg.version, '0.1.8')
   assert.equal(pkg.dsh.engine, supportedRange)
   assert.equal(pkg.peerDependencies['@deepseek-ai/cordis'], '>=4.0.1 <5')
   for (const name of runtimePeers) assert.equal(pkg.peerDependencies[name], supportedRange)
