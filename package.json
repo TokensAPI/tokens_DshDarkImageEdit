@@ -1,6 +1,6 @@
 {
   "name": "@tokensapi/dsh-dark-image-edit",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "TokensCowork 图片标注与 Qwen 图像编辑插件",
   "license": "MIT",
   "repository": {

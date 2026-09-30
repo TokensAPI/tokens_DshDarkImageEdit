@@ -60,7 +60,7 @@ test('package metadata covers supported TokensCowork runtimes without the obsole
     '@deepseek-ai/dsh-client-ui-tool',
   ]
 
-  assert.equal(pkg.version, '0.1.8')
+  assert.equal(pkg.version, '0.1.9')
   assert.equal(pkg.dsh.engine, supportedRange)
   assert.equal(pkg.peerDependencies['@deepseek-ai/cordis'], '>=4.0.1 <5')
   for (const name of runtimePeers) assert.equal(pkg.peerDependencies[name], supportedRange)

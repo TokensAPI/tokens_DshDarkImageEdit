@@ -14,7 +14,7 @@
 
 ## 功能
 
-- 发送前本地标注待发图片：画笔、颜色、线宽、方框、撤销；保存后替换草稿附件，由用户照常点击发送。此功能在 TokensCowork 桌面版中运行，不调用远端图片编辑接口，也不识别图片内容。
+- 发送前本地标注待发图片：画笔、方框、直线、颜色、线宽、撤销。鼠标滚轮或触控板双指捏合可围绕指针缩放；放大后可选“移动”工具或按住空格拖动画面，并可切换“适应窗口”与“原始尺寸”。标注始终落在原图坐标，保存为原尺寸 PNG 后替换草稿附件，由用户照常点击发送。此功能在 TokensCowork 桌面版中运行，不调用远端图片编辑接口，也不识别图片内容。
 - 图片编辑（仅 `qwen_image`），全程**不读取图片内容**（黑盒流程）；
 - 图片输入支持 `dsh-attachment:latest/first/last/index:N/附件id`、HTTPS URL、本地路径与 data URL；
 - **最多 3 张输入图**：`image` 用逗号分隔多个来源（如 `dsh-attachment:1,dsh-attachment:2`），按顺序映射为 `reference_1..reference_3`；
@@ -35,7 +35,7 @@
 
 ```bash
 cd ~/.dsh/profiles
-npm install <路径>/tokensapi-dsh-dark-image-edit-0.1.8.tgz
+npm install <路径>/tokensapi-dsh-dark-image-edit-0.1.9.tgz
 ```
 
 在 `cordis.patch.yml` 注册：
