@@ -1,6 +1,6 @@
 {
   "name": "@tokensapi/dsh-dark-image-edit",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "TokensCowork 图片标注与 Qwen 图像编辑插件",
   "license": "MIT",
   "repository": {
@@ -48,6 +48,7 @@
     "client": {
       "inject": [
         "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-chat",
         "@deepseek-ai/dsh-client-ui-conversation",
         "@deepseek-ai/dsh-client-ui-tool"
       ],
@@ -59,11 +60,11 @@
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1 <5",
-    "@deepseek-ai/dsh-credentials": ">=0.1.0-rc.8 <0.2.0",
-    "@deepseek-ai/dsh-tools": ">=0.1.0-rc.8 <0.2.0",
     "@deepseek-ai/dsh-client-locale": ">=0.1.0-rc.8 <0.2.0",
     "@deepseek-ai/dsh-client-ui-conversation": ">=0.1.0-rc.8 <0.2.0",
     "@deepseek-ai/dsh-client-ui-tool": ">=0.1.0-rc.8 <0.2.0",
+    "@deepseek-ai/dsh-credentials": ">=0.1.0-rc.8 <0.2.0",
+    "@deepseek-ai/dsh-tools": ">=0.1.0-rc.8 <0.2.0",
     "react": "^18.2.0"
   },
   "devDependencies": {
