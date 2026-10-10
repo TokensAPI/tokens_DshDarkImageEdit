@@ -28,3 +28,4 @@ DIE-026,图片元数据,非图片数据不返回尺寸,提供非图片字节,无
 DIE-027,图片比例,映射到最近的支持比例,图片宽高已知,不同宽高组合,计算最近比例,结果属于支持的比例集合且符合预期,P1,已自动化,test/image-edit.test.mjs :: closestAspectRatio maps measured dimensions to the nearest supported ratio
 DIE-028,图片来源,拆分单图与多图并限制数量,图片来源字符串可用,单图多图与超量输入,拆分来源,正确生成来源列表并拒绝超量,P0,已自动化,"test/image-edit.test.mjs :: splitImageInputs supports a single source, comma-separated multi sources, and a max of 3"
 DIE-029,隐私约束,系统提示词保持图片黑盒处理,系统提示词已构建,图片编辑规则,检查系统提示词,不要求读取描述或分析图片内容,P0,已自动化,test/image-edit.test.mjs :: system prompt enforces the private black-box flow (no image content reading)
+DIE-030,宿主兼容,桌面宿主附件入口与提示词插槽符合当前插件,本地宿主依赖已安装,会话组件类型与运行时代码,检查宿主槽位且安装桌面版时对比安装包,宿主暴露文件接入及输入框左侧插槽且本机桌面实现与测试包一致,P0,已自动化,test/host-contract.test.mjs :: host composer exposes the attachment intake and prompt control slots
