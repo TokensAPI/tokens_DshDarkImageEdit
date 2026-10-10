@@ -83,7 +83,8 @@ TOKENSAPI_API_KEY
 ## 打包
 
 ```bash
-npm run check   # 类型检查 + 测试 + 构建
+npm run test:cases  # 执行 test/test_cases.csv 中的功能回归；npm test 使用同一入口
+npm run check       # 类型检查 + 功能回归 + 构建
 npm pack        # 生成可分发安装包
 ```
 

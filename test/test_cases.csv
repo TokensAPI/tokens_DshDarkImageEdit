@@ -1,0 +1,30 @@
+用例编号,所属模块,用例标题,前置条件,测试数据,操作步骤,预期结果,优先级,自动化状态,对应测试
+DIE-001,提示词复用,将保存的提示词追加到纯文本草稿,输入框处于普通草稿状态,已有草稿和一条提示词,打开提示词面板并选中提示词,草稿追加提示词且不发送消息,P0,已自动化,test/client-reuse.test.mjs :: saved prompt can be appended to a plain draft without submitting it
+DIE-002,提示词复用,编辑提示词并持久保存,本地已有提示词,旧提示词和新内容,打开面板编辑并保存,本地存储中的提示词内容更新,P0,已自动化,test/client-reuse.test.mjs :: prompt editor persists a changed reusable prompt
+DIE-003,图片复用,拖入当前会话的历史附件,当前会话附件可读取,PNG 附件,将历史图片拖到输入框,宿主文件入口收到原始字节和媒体类型,P0,已自动化,test/client-reuse.test.mjs :: internal image drop reuses the current session attachment through host file intake
+DIE-004,图片复用,历史持久附件提供拖拽引用,历史图片已保存为会话附件,附件 ID 和会话 ID,开始拖动历史图片,拖拽数据包含当前会话和附件引用,P0,已自动化,test/client-reuse.test.mjs :: historical image exposes a drag reference only for a durable attachment
+DIE-005,插件加载,宿主构建导出插件契约,已构建宿主入口,dist/index.js,导入宿主构建,插件名称与加载入口及客户端类可用,P0,已自动化,test/image-edit.test.mjs :: dist bundle loads and exports the plugin contract
+DIE-006,客户端加载,客户端脚本注册包名并保留结果展示,客户端脚本存在,包清单和客户端脚本,检查模块注册和结果操作,模块名正确且结果可下载,P0,已自动化,test/image-edit.test.mjs :: client bundle registers the published package name and keeps result rendering
+DIE-007,草稿标注,标注编辑器优先于宿主默认附件栏,客户端插件已加载,输入框附件槽位,调用客户端注册入口,附件编辑器以预期优先级注册,P1,已自动化,test/image-edit.test.mjs :: client bundle registers its draft image editor before the stock attachment rail
+DIE-008,包清单,运行时兼容范围与客户端依赖声明正确,包清单存在,package.json,读取版本和宿主依赖,版本及兼容范围和注入声明符合当前包约定,P0,已自动化,test/image-edit.test.mjs :: package metadata covers supported TokensCowork runtimes without the obsolete client runtime peer
+DIE-009,上传配置,默认上传端点使用 API Key 资产接口,宿主源码存在,默认配置,读取配置定义,上传地址和认证模式为预期值,P0,已自动化,test/image-edit.test.mjs :: default image upload configuration uses the API-key assets endpoint
+DIE-010,工具注册,注册编辑工具与系统提示词,宿主服务可注入,模拟宿主上下文,应用插件入口,编辑工具和系统提示词区段均注册,P0,已自动化,test/host-flow.test.mjs :: apply() registers the image_edit tool and a system prompt section
+DIE-011,编辑流程,完成上传提交轮询与保存,网络与附件服务由本地夹具模拟,单张 PNG 和编辑指令,执行 image_edit,结果图片保存为会话附件并返回,P0,已自动化,test/host-flow.test.mjs :: image_edit execute runs the full upload->submit->poll->save flow (mock)
+DIE-012,编辑参数,尊重指定的生成张数,本地编辑流程夹具可用,显式 n 参数,执行 image_edit,提交请求使用指定张数,P1,已自动化,test/host-flow.test.mjs :: image_edit honors an explicitly requested image count
+DIE-013,编辑参数,尊重指定的画面比例,本地编辑流程夹具可用,显式 aspect_ratio 参数,执行 image_edit,提交请求使用指定比例,P1,已自动化,test/host-flow.test.mjs :: image_edit honors an explicitly requested aspect ratio
+DIE-014,多图编辑,最多三张输入依次映射为参考图,本地编辑流程夹具可用,逗号分隔的三张图片,执行 image_edit,三张输入按顺序映射到参考图参数,P0,已自动化,test/host-flow.test.mjs :: image_edit accepts up to 3 comma-separated input images and maps them to reference_1..N
+DIE-015,多图编辑,依据用户选择的图片尺寸确定比例,多图且未指定比例,不同尺寸的图片,回答尺寸参考问题并执行编辑,输出比例参考所选图片,P1,已自动化,test/host-flow.test.mjs :: image_edit uses the answered image's dimensions when multiple inputs are given
+DIE-016,多图编辑,显式比例时不再询问尺寸参考,多图编辑流程夹具可用,多图和显式比例,执行 image_edit,跳过尺寸参考问题,P1,已自动化,test/host-flow.test.mjs :: image_edit does not ask for aspect ratio when an explicit one is provided
+DIE-017,多图编辑,问答服务不可用时使用首图尺寸,多图且问答服务不可用,不同尺寸的图片,执行 image_edit,使用第一张图片尺寸继续编辑,P1,已自动化,test/host-flow.test.mjs :: image_edit falls back to the first image dimensions when the question service is unavailable
+DIE-018,输入校验,拒绝超过三张输入图,本地编辑流程夹具可用,四张图片,执行 image_edit,提交前拒绝过量输入,P0,已自动化,test/host-flow.test.mjs :: image_edit rejects more than 3 input images before submitting
+DIE-019,输入校验,拒绝不支持的模型或无效张数,本地编辑流程夹具可用,错误模型或张数,执行 image_edit,提交前返回参数错误,P0,已自动化,test/host-flow.test.mjs :: image_edit rejects an unsupported model or invalid count before submitting
+DIE-020,网络重试,提交重试保留幂等键,第一次网络请求失败,模拟 fetch 失败与恢复,执行提交,重试沿用同一幂等键,P0,已自动化,test/image-edit.test.mjs :: submit retries fetch failures with one stable idempotency key
+DIE-021,任务复用,重复提交复用已有任务 ID,相同输入已提交,相同请求参数,重复调用提交,返回既有任务 ID,P1,已自动化,test/image-edit.test.mjs :: submit reuses an existing task id for an identical repeated call
+DIE-022,任务轮询,成功后返回结果并清除任务记录,任务状态最终成功,模拟成功响应,轮询任务,返回成功数据并忘记任务,P0,已自动化,test/image-edit.test.mjs :: poll returns succeeded data and forgets the task
+DIE-023,任务轮询,超时后保留可恢复状态,轮询超过截止时间,模拟持续处理中,轮询任务,返回可恢复的超时结果,P0,已自动化,test/image-edit.test.mjs :: poll returns a recoverable timedOut result on deadline
+DIE-024,上传授权,校验签名上传头,上传授权响应可解析,合法和禁止的请求头,解析上传授权,放行有效头并拒绝禁止头,P0,已自动化,test/image-edit.test.mjs :: parseImageUploadGrant validates and rejects forbidden headers
+DIE-025,图片元数据,从常见图片文件头读取尺寸,提供有效图片文件头,PNG GIF JPEG WebP,解析图片尺寸,无需分析图片内容即可得到宽高,P0,已自动化,test/image-edit.test.mjs :: imageDimensions reads width/height from file headers only (PNG/GIF/JPEG/WebP)
+DIE-026,图片元数据,非图片数据不返回尺寸,提供非图片字节,无效图片字节,解析图片尺寸,结果为 null,P1,已自动化,test/image-edit.test.mjs :: imageDimensions returns null for non-image bytes
+DIE-027,图片比例,映射到最近的支持比例,图片宽高已知,不同宽高组合,计算最近比例,结果属于支持的比例集合且符合预期,P1,已自动化,test/image-edit.test.mjs :: closestAspectRatio maps measured dimensions to the nearest supported ratio
+DIE-028,图片来源,拆分单图与多图并限制数量,图片来源字符串可用,单图多图与超量输入,拆分来源,正确生成来源列表并拒绝超量,P0,已自动化,"test/image-edit.test.mjs :: splitImageInputs supports a single source, comma-separated multi sources, and a max of 3"
+DIE-029,隐私约束,系统提示词保持图片黑盒处理,系统提示词已构建,图片编辑规则,检查系统提示词,不要求读取描述或分析图片内容,P0,已自动化,test/image-edit.test.mjs :: system prompt enforces the private black-box flow (no image content reading)
