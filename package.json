@@ -1,6 +1,6 @@
 {
   "name": "@tokensapi/dsh-dark-image-edit",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "TokensCowork 图片标注与 Qwen 图像编辑插件",
   "license": "MIT",
   "repository": {
@@ -38,8 +38,7 @@
     "prepack": "npm run check"
   },
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://npm.tokensapi.ai/"
   },
   "dsh": {
     "engine": ">=0.1.0-rc.8 <0.2.0",

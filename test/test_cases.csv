@@ -6,7 +6,7 @@ DIE-004,图片复用,历史持久附件提供拖拽引用,历史图片已保存�
 DIE-005,插件加载,宿主构建导出插件契约,已构建宿主入口,dist/index.js,导入宿主构建,插件名称与加载入口及客户端类可用,P0,已自动化,test/image-edit.test.mjs :: dist bundle loads and exports the plugin contract
 DIE-006,客户端加载,客户端脚本注册包名并保留结果展示,客户端脚本存在,包清单和客户端脚本,检查模块注册和结果操作,模块名正确且结果可下载,P0,已自动化,test/image-edit.test.mjs :: client bundle registers the published package name and keeps result rendering
 DIE-007,草稿标注,标注编辑器优先于宿主默认附件栏,客户端插件已加载,输入框附件槽位,调用客户端注册入口,附件编辑器以预期优先级注册,P1,已自动化,test/image-edit.test.mjs :: client bundle registers its draft image editor before the stock attachment rail
-DIE-008,包清单,运行时兼容范围与客户端依赖声明正确,包清单存在,package.json,读取版本和宿主依赖,版本及兼容范围和注入声明符合当前包约定,P0,已自动化,test/image-edit.test.mjs :: package metadata covers supported TokensCowork runtimes without the obsolete client runtime peer
+DIE-008,包清单,运行时兼容范围与私有发布目标正确,包清单存在,package.json 和 .npmrc,读取版本和宿主依赖及发布配置,兼容声明与私有 Registry 路由符合当前包约定,P0,已自动化,test/image-edit.test.mjs :: package metadata covers supported TokensCowork runtimes and private publish target
 DIE-009,上传配置,默认上传端点使用 API Key 资产接口,宿主源码存在,默认配置,读取配置定义,上传地址和认证模式为预期值,P0,已自动化,test/image-edit.test.mjs :: default image upload configuration uses the API-key assets endpoint
 DIE-010,工具注册,注册编辑工具与系统提示词,宿主服务可注入,模拟宿主上下文,应用插件入口,编辑工具和系统提示词区段均注册,P0,已自动化,test/host-flow.test.mjs :: apply() registers the image_edit tool and a system prompt section
 DIE-011,编辑流程,完成上传提交轮询与保存,网络与附件服务由本地夹具模拟,单张 PNG 和编辑指令,执行 image_edit,结果图片保存为会话附件并返回,P0,已自动化,test/host-flow.test.mjs :: image_edit execute runs the full upload->submit->poll->save flow (mock)
